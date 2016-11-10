@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+        <title>
+            User Registration
+        </title>
+    </head>
+    <body>
+        <div class=container>
+            <div>
+            </div>
+            
+            <form action="registration" class="form-group" method="POST"> 
+                <div class="radio">
+                <label>
+                <input class="" type="radio" name="privilege" value="Admin">
+                Admin
+                </label>
+                </div>
+                <div class="radio">
+                <label>
+                <input class= "" type="radio" name="privilege" value="User">
+                User
+                </label>
+                </div>
+                <div class="radio">
+                <label>
+                <input class= "" type="radio" name="privilege" value="Guest">
+                Guest
+                </label>
+                </div>
+                <label for="username">Name:</label>
+                <input class="form-control" type="text" name="username" />
+                <label for="password">Password:</label>
+                <input class="form-control" type="text" name="password" />
+                <input type="submit" value="save" />
+            
+            </form>
+        </div>
+    </body>
+</html>

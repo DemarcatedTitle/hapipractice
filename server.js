@@ -1,0 +1,239 @@
+'use strict';
+
+const Hapi = require('hapi');
+const server = new Hapi.Server();
+const Inert = require('inert');
+const path = require('path');
+const Vision = require('vision');
+const Joi = require('joi');
+const fs = require('fs');
+const Boom = require('boom');
+const mongojs = require('mongojs');
+const uuid = require('node-uuid');
+
+//boom, hapi, joi, mongojs, node-uuid
+
+const _ = require('lodash');
+
+//Taking a moment to bring the information to the front of my mind
+//and type this up so I understand what's going on
+//
+//Inert is allowing me to feed my css file to the browser
+//
+//Vision is allowing me to use handlebars and feed my views to the browser
+
+server.connection({
+    host: 'localhost',
+    port: Number(process.argv[2] || 8080)
+});
+
+server.register(Inert, function (err) {
+    if (err) throw err;
+});
+
+
+server.register(Vision, function (err) {
+    if (err) throw err;
+});
+
+server.app.db = mongojs('hapipractice', ['posts']);
+server.app.db = mongojs('hapipractice', ['users']);
+
+server.register([
+    require('./routes/users')
+], (err) => {
+
+    if (err) {
+        throw err;
+    }
+
+    server.start(function () {
+        console.log('Server running at:', server.info.uri);
+    });
+});
+
+
+
+
+const db = server.app.db;
+
+server.views({
+    engines: {
+        html: require('handlebars')
+    },
+    path: path.join(__dirname, 'templates'),
+    helpersPath: 'helpers'
+        //this sets up the directory to be read from for the views and helpers
+});
+
+//This route is serving up static files in the templates folder
+//allowing me to send my main.css.
+server.route({
+  method: 'GET',
+  path: '/{param*}',
+  handler: {
+    directory: {
+      path:   path.join(__dirname, 'templates'), 
+      listing: false,
+      index:   false
+    }
+  }
+});
+
+server.route({path: '/', method:'GET',
+   //?name=Handling 
+handler: function (request, reply) {
+    
+    db.posts.find((err, docs) => {
+        
+        if(err) {
+            return reply(Boom.wrap(err, 'Internal MongoDB error'));
+        }
+        var posts = docs;
+        reply.view("youposted.html", posts);
+    });
+}
+});
+
+
+//This is just sample data for me to test handlebars out
+//it gets fed to handlebars as context data and then 
+//I used my template with #each to populate some comments/posts
+var thingtest = {
+    posts:[
+    {username: 'guy 1', userpost: 'guy said something', postid: 0},
+    {username: 'lady 1', userpost: 'lady said something else', postid: 1},
+    {username: 'guy 2', userpost: 'I responded to both', postid: 2}
+    ],
+    users: {
+                 "guy 1" : {
+                     privilege: "admin",
+                     userID: 1 
+                 },
+                 "lady 1" : {
+                     privilege : "user",
+                     userID : 2 
+                 },
+                 "guy 2" : {
+                    privilege : "guest",
+                    userID : 0
+                 }
+             }};
+
+
+//server.route({
+//    //This is the interesting bit so far
+//    //
+//    //The handler is a function that collects whatever was posted 
+//    //with the available possible things to be posted being
+//    //username and userpost
+//    //it makes a variable and then an if statement to do do a basic
+//    //clean up, nothing secure but it's all just playground right now. 
+//    path: '/', 
+//    method:'POST',
+//   //?name=Handling 
+//    handler: function(request, reply) {
+//        var newpost = {
+//            username: request.payload.username,
+//            userpost: request.payload.userpost,
+//            privilege: request.payload.privilege
+//        };
+//        if (newpost.username !== undefined && newpost.username !=='' && newpost.userpost !==undefined && newpost.userpost !==''){
+
+//            thingtest.posts.push(newpost);
+//        }
+//        thingtest.privilege = request.payload.privilege;
+//        //And so if that all works out in a basic sense, 
+//        //i add the newpost to the array and then the view loads up
+//        //with the newly added comment
+//        //So far I have tested it from different browsers 
+//        //and they can read each other's posts
+//        //because the server is hosting it in a variable
+//        //
+//        //I want to test it out on another device but 
+//        //not entirely sure how to do that just yet. 
+//        reply.view('youposted.html', thingtest);
+//        //This selects which view to display and sends the context
+//        //which in this case comes from an html form called htmlinput
+//        //not a good name
+        
+//        //if a post being requested to be removed
+//        //remove it from the array then return the view
+//        //no authentication yet
+//        //
+//        console.log('something posted');
+//        if (request.payload.remove) {
+//            var postIndex = request.payload.remove;
+//            thingtest.posts.splice(postIndex, 1);
+//            console.log('something removed');
+//        }
+
+//    },
+//        //not sure this validation thing is doing anything right now
+//     config: {
+//        validate: {
+//            payload: Joi.object({
+//                'POST-name': Joi.string(),
+//                // birthyear: Joi.number().integer().min(1900).max(2013),
+//                // email: Joi.string().email()
+//            })
+//                    .options({allowUnknown: true})
+//        }
+//    } 
+//});
+
+    server.route({
+        method: 'POST',
+        path: '/',
+        handler: function (request, reply) {
+
+            const message = request.payload;
+
+            //Create an id
+            message._id = uuid.v1();
+
+            db.posts.save(message, (err, result) => {
+
+                if (err) {
+                    return reply(Boom.wrap(err, 'Internal MongoDB error'));
+                }
+
+                // reply(message);
+                // reply.view('youposted.html');
+            });
+
+
+            db.posts.find((err, docs) => {
+
+                if (err) {
+                    return reply(Boom.wrap(err, 'Internal MongoDB error'));
+                }
+
+                reply(docs);
+            });
+
+
+
+        },
+        config: {
+            validate: {
+                payload: {
+                    username: Joi.string().min(1).max(50),
+                    userpost: Joi.string().min(1).max(50)
+                    // privilege: Joi.string().min(1).max(10)
+                }
+            }
+        }
+    });
+
+
+
+
+//And probably the most interesting thing about any of this is I am 
+//operating it with noscript not allowing any javascript from localhost
+//so it's just html and serverside stuff
+//
+//Although I'm pretty sure that is severely limiting for a lot of things
+//that a business would want like analytics and advertising and 
+//stuff like that, but it's an interesting thing to toy around with. 
+

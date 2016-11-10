@@ -1,0 +1,22 @@
+.username {
+    border: 1px solid black;
+
+}
+
+.post {
+    border: 1px solid black;
+
+}
+
+.admin p {
+    background-color: red;
+}
+
+.user p {
+    background-color: grey;
+
+}
+
+.guest p {
+    background-color: green;
+}

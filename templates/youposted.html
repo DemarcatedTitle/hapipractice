@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+        <title>
+            You posted!
+        </title>
+    </head>
+    <body>
+        <div class=container>
+            <div>
+                <a href=./userregistration.html>User Registration </a>
+                youposted.html!
+            </div>
+            
+            <form action="" class="form-group" method="POST"> 
+                <label for="username">Name:</label>
+                <input class="form-control" type="text" name="username" />
+                <label for="post">What do you want to say?</label>
+                <textarea class="form-control" type="text" name="userpost"></textarea>
+                <input type="submit" value="save" />
+            
+            </form>
+            <div>
+                {{#each @root}}
+                {{{postclass}}}
+                    <!-- option -->
+                    <p class="col-md-3 username">{{username}}</p>
+                    <p class="col-md-8 post">{{userpost}}</p>
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "name": "hapipracticerefactor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hapipracticerefactor",
+  "dependencies": {
+    "boom": "^4.2.0",
+    "eslint": "^3.7.1",
+    "eslint-config-standard": "^6.2.0",
+    "eslint-plugin-promise": "^3.0.0",
+    "eslint-plugin-react": "^6.4.1",
+    "eslint-plugin-standard": "^2.0.1",
+    "h2o2": "^5.1.1",
+    "handlebars": "^4.0.5",
+    "hapi": "^15.0.3",
+    "hapi-auth-basic": "^4.2.0",
+    "inert": "^4.0.2",
+    "joi": "^9.0.4",
+    "mongojs": "^2.4.0",
+    "node-uuid": "^1.4.7",
+    "rot13-transform": "^1.0.0",
+    "tern": "^0.20.0",
+    "vision": "^4.1.0",
+    "lodash": "^4.16.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
