@@ -1,0 +1,28 @@
+=The last thing I was working on=
+
+
+
+=A local to do list for this project=
+
+* [X] fix how posts work
+    * [X] The front part needs to be worked on, postclass and option helpers I think
+        * [X] First order of business is fixing the posts collection and adding userid/privilege
+            * [X] Maybe write a short script to do it programmatically? 
+        * [X] After that I will just update postclass to work with the new context
+* [ ] HTTPS
+    * [ ] So the actual secure method would cost money, based on what I've read. 
+          This will remain unchecked indefinitely I guess. 
+          Although Apparently lets encrypt is a free certificate authority? 
+* [ ] Add authorization/authentication based views
+    * [ ] Users should be able to post
+    * [ ] Admin should have remove post option as well
+    * [ ] Guests should only be able to read it, but maybe find something guests can do
+* [ ] Once I have different abilities based on privilege, add some more
+    * [ ] Turn the posts page into a forum thread
+    * [ ] It would start as a basic forum, users can create more threads, admins delete/modify
+
+
+=Side project=
+* [ ] Another useful thing would be figuring out how to efficiently test stuff. It seems like a curl might be easier to do than loading the page in firefox. Maybe script that runs node + curl and exits? 
+    * [ ] Figure out quick methods for testing my particular situation
+    * [ ] investigate if there are more established/useful things that are applicable
