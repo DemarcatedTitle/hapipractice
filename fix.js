@@ -15,11 +15,9 @@ db.posts.find(seekUserPrivilege);
 }
 
 function seekUserPrivilege (err, docs) {
-
     if (err) {
         return console.log(err);
     }
-    
     ////I guess this is the iterator I should use to find their privilege level//{{{
     ////What I'm trying to do is find an individual doc
     ////
@@ -48,10 +46,7 @@ function updatePrivilege (err, user) {
     bulk.execute(function (err, res) {
         console.log('Done!');
     });
-
-
 }
-
 function showResult () {
     db.posts.find();
 }

@@ -1,4 +1,6 @@
 =The last thing I was working on=
+working on encrypting the passwords, then setting up registration with encryption 
+Got that done. I guess the next thing would be registration + auth
 
 
 
@@ -14,9 +16,15 @@
           This will remain unchecked indefinitely I guess. 
           Although Apparently lets encrypt is a free certificate authority? 
 * [ ] Add authorization/authentication based views
+    * [ ] 
     * [ ] Users should be able to post
     * [ ] Admin should have remove post option as well
     * [ ] Guests should only be able to read it, but maybe find something guests can do
+* [o] Set up a good user registration
+    * [X] Something that takes passwords, encrypts and salts them
+        * [X] Figure out how to use Bcrypt
+        * [X] Encrypt my current user's passwords
+    * [ ] Implement Bcrypt on the registration
 * [ ] Once I have different abilities based on privilege, add some more
     * [ ] Turn the posts page into a forum thread
     * [ ] It would start as a basic forum, users can create more threads, admins delete/modify

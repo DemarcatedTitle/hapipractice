@@ -3,10 +3,17 @@ module.exports = function (context) {
     //get the username and return a class="privilege" for it. 
     
     // var indexNum = context.data.index;
-    // var username = context.data.root.posts[indexNum].username;
-    // var privilege = context.data.root.users[username].privilege;
+    // var username = context.data.root[indexNum].username;
+    // var privilege = context.data.root[username].privilege;
+
+    const posts = context.data.root;
+    const indexNum = context.data.index;
+    const privilege = posts[indexNum].privilege;
+    const username = posts[indexNum].username;
+    console.log(privilege + ' ' + username);
 
 
+    
     
     // if (privilege !== undefined) {
 
@@ -25,7 +32,8 @@ module.exports = function (context) {
     // 
     //
     //maybe posts should just have that data ready
-    console.log(context.data.root[context.data.index]);
+    // console.log(context.data.root[context.data.index]);
+    // console.log(context.data.root);
 
 
 
