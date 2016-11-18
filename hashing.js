@@ -12,7 +12,6 @@ var oldPasswords;
 function fixPass (username, password) {
     let fix = bcrypt.hashSync(password, 10);
     return fix;
-    
 }
 
 function savePasswords (correctedUser) {

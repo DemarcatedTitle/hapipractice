@@ -7,7 +7,8 @@ const Vision = require('vision');
 const Joi = require('joi');
 const fs = require('fs');
 const Boom = require('boom');
-const mongojs = require('mongojs');
+const bluebirdPromise = require('bluebird');
+const mongojs = bluebirdPromise.promisifyAll(require('mongojs'));
 const uuid = require('node-uuid');
 
 //boom, hapi, joi, mongojs, node-uuid
@@ -37,6 +38,7 @@ server.register(Vision, function (err) {
 
 server.app.db = mongojs('hapipractice', ['posts']);
 server.app.db = mongojs('hapipractice', ['users']);
+server.app.db = mongojs('hapipractice', ['newUsers']);
 
 const db = server.app.db;
 server.register([
