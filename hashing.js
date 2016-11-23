@@ -1,7 +1,6 @@
 'use strict';
 const mongojs = require('mongojs');
 const db = mongojs('hapipractice', ['newUsers']);
-
 const bcrypt = require('bcrypt');
 const bluebirdPromise = require('bluebird');
 bluebirdPromise.promisifyAll(require('mongojs'));
