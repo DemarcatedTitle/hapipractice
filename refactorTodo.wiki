@@ -1,20 +1,24 @@
 =The last thing I was working on=
-working on encrypting the passwords, then setting up registration with encryption 
-Got that done. I guess the next thing would be registration + auth
-
-So I have a registration with encrypted passwords set up somewhat. 
-The major kinks are worked out I think, as far as it actually working is concerned. 
-But I still want to come to a better understanding of the promise concept
-and see if there's a better way to do it. 
-
-For the understanding stuff I think I'll defer that to another time and place. 
-Perhaps coffee and code and ask advice, perhaps the internet. 
-
-The task for tonight and in the morning will be making a useful registration that I'll 
-elaborate on below. 
 
 What I'm planning to do right now: work on the login
 
+I need to clean it up before I can do anything useful with jwt. 
+
+I have the jwt auth working at a basic level, I think. I think the next thing
+for me to start working on is getting it so the views work based on who's
+logged in. So it'll allow access to the index page by default, but it won't
+give you the option to do anything except log in or register(maybe). 
+
+%% Right now: User specific views
+%% maybe a "thisUser" object to pass in the context. 
+
+I think the cookies aren't working because i'm not able to set it to localhost:8080
+so when I click a link from localhost:8080 and the link doesn't have the port,
+it will still send a cookie or header. But when I type it in manually, like
+localhost:8080/registration it doesn't send the cookie or at least sends it
+improperly. 
+
+So right now, fixing the cookie stuff. 
 
 
 =A local to do list for this project=
@@ -30,10 +34,10 @@ What I'm planning to do right now: work on the login
           This will remain unchecked indefinitely I guess. 
           Although Apparently lets encrypt is a free certificate authority? 
 * [ ] Add authorization/authentication based views
-    * [ ] 
-    * [ ] Users should be able to post
-    * [ ] Admin should have remove post option as well
-    * [ ] Guests should only be able to read it, but maybe find something guests can do
+    * [ ] Users should be able to post. Admin should have remove post option as well. Guests should only be able to read it, but maybe find something guests can do.
+    * [ ] Context should include variables, use handlebars if to render stuff
+    * [ ] Something to determine authorization, like if someone makes a post 
+          and it's not an appropriate user, don't make the post. 
 * [O] Set up a good user registration
     * [X] Something that takes passwords, encrypts and salts them
         * [X] Figure out how to use Bcrypt
@@ -43,6 +47,9 @@ What I'm planning to do right now: work on the login
         * [X] Can't let people have the same username
         * [ ] This is a general thing as well but sanitizing inputs is probably important. 
         * [ ] 
+* [o] Set up a way to persist the login
+    * [X] Cookies
+    * [ ] Figure out how it works for sure
 * [ ] Set up a way to reset the password
 * [ ] Once I have different abilities based on privilege, add some more
     * [ ] Turn the posts page into a forum thread
@@ -60,5 +67,17 @@ What I'm planning to do right now: work on the login
 
 
 =Learned things=
-I think some of the problems with promisifications had to do with 1. the
-mongojs library and 2. I didn't use the Async suffix.  
+* I think some of the problems with promisifications had to do with 1. the 
+  mongojs library and 2. I didn't use the Async suffix.
+* The order of how you register plugins and stuff like that matters. I spent a
+  lot of time figuring out why jwt didn't register properly.
+* Going hand in hand with the previous point, it is also important to maintain
+  easy to read code. Part of why it was hard to figure out was because since I
+  was putting together things from different examples, the styles/patterns of
+  how everything was done was kind of different. Like the way hapi-struct
+  registers plugins was slightly different from how the guy answering the
+  github issue registers his plugins. Among other differences. 
+* The missing piece in my jwt stuff was a callback in the validate function. 
+  Surprisingly a lot of time figuring that out. At least I persisted though. 
+
+vim: textwidth=80

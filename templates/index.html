@@ -8,26 +8,14 @@
         <title>Just the index</title></head>
     <body>
         <div class="container">
-            <form class= "form-group" action="" method="POST">
-                <div class="radio">
-                <label>
-                <input class="" type="radio" name="privilege" value="Admin">
-                Admin
-                </label>
-                </div>
-                <div class="radio">
-                <label>
-                <input class= "" type="radio" name="privilege" value="User">
-                User
-                </label>
-                </div>
-                <div class="radio">
-                <label>
-                <input class= "" type="radio" name="privilege" value="Guest">
-                Guest
-                </label>
-                </div>
-                <input type="submit" value="save">
+
+            <a href="./registration">Registration</a>
+            <form action="login" class="form-group" method="POST"> 
+                <label for="username">Name:</label>
+                <input class="form-control" type="text" name="username" />
+                <label for="password">Password:</label>
+                <input class="form-control" type="text" name="password" />
+                <input type="submit" value="Log in" />
             </form>
             <!-- {{users}} -->
         </div>
