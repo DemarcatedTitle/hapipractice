@@ -1,22 +1,37 @@
-.username {
-    border: 1px solid black;
+/* .username { */
+/*     border: 1px solid black; */
 
-}
+/* } */
 
+/* .post { */
+/*     border: 1px solid black; */
+
+/* } */
 .post {
-    border: 1px solid black;
-
+    border-left: 1px solid black;
+}
+/* .username { */
+/*     border-right: 1px solid black; */
+/* } */
+.row {
+    display: flex;
 }
 
-.admin p {
+.test {
+    background-color: orange;
+}
+
+.Admin {
     background-color: red;
+    border: 1px solid black;
 }
 
-.user p {
+.user {
     background-color: grey;
-
+    border: 1px solid black;
 }
 
-.guest p {
+.guest {
     background-color: green;
+    border: 1px solid black;
 }

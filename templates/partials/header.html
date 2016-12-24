@@ -1,0 +1,36 @@
+
+    <nav class='navbar navbar-default'>
+        <ul class='nav nav-pills navbar-left'>
+            <li class='{{#if @root.main}}active{{/if}}'>
+                <a href='/'>Main page</a>
+            </li>
+            <li class='{{#if @root.login}}active{{/if}}'>
+                <a href='/login'>Login Screen</a>
+            </li>
+            <li class='{{#if @root.registration}}active{{/if}}'>
+                <a href='./registration'>User Registration </a>
+            </li>
+            <li class='{{#if @root.restricted}}active{{/if}}'>
+                <a href='./restricted'>Restricted</a>
+            </li>
+            {{#if @root.thisUser}}
+            <li>
+            Hi, {{@root.thisUser.username}}. You are a {{@root.thisUser.privilege}}
+            </li>
+            <li>
+            <a href='/signout'>Sign out</a>
+            </li>
+            {{/if}}
+        </ul>
+
+            {{#unless @root.thisUser}}
+            <form action="login" class="navbar-form " method="POST"> 
+                <label for="username">Username:</label>
+                <input class="form-control" type="text" name="username" />
+                <label for="password">Password:</label>
+                <input class="form-control" type="text" name="password" />
+                <input type="submit" value="Log in" />
+            </form>
+            {{/unless}}
+    </nav>
+

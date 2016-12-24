@@ -43,14 +43,14 @@ server.app.db = mongojs('hapipractice', ['users']);
 server.app.db = mongojs('hapipractice', ['newUsers']);
 
 const db = server.app.db;
+module.exports = server;
 //**********The order of this is important!**********
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 server.register([
     Vision,
     Inert,
     auth,
-    require('./routes/users'),
-    require('./routes/forum')
+    require('./routes/routes')
     ], (err) => {
     if (err) {
         throw err;
@@ -73,6 +73,7 @@ server.views({
         html: require('handlebars')
     },
     path: path.join(__dirname, 'templates'),
+    partialsPath: path.join(__dirname, 'templates/partials'),
     helpersPath: 'helpers'
         //this sets up the directory to be read from for the views and helpers
 });

@@ -1,34 +1,53 @@
 =The last thing I was working on=
 
-What I'm planning to do right now: work on the login
+Things that are being repeated right now: setting up context. 
+I could probably do that smoother without defining it over and over again. 
 
-I need to clean it up before I can do anything useful with jwt. 
+For multiple forums
+Perhaps something like using params
+/forum=/thread=
+if forum and no thread, pass in a context that indicates and displays such
+if forum and thread, pass in a context that indcates and displays such
 
-I have the jwt auth working at a basic level, I think. I think the next thing
-for me to start working on is getting it so the views work based on who's
-logged in. So it'll allow access to the index page by default, but it won't
-give you the option to do anything except log in or register(maybe). 
+the params will be used for a mongodb query
 
-%% Right now: User specific views
-%% maybe a "thisUser" object to pass in the context. 
+So today at coffee and code I've tidied my code up a bit. I think it's a little
+less confusing to read. 
 
-I think the cookies aren't working because i'm not able to set it to localhost:8080
-so when I click a link from localhost:8080 and the link doesn't have the port,
-it will still send a cookie or header. But when I type it in manually, like
-localhost:8080/registration it doesn't send the cookie or at least sends it
-improperly. 
+I have also started work on moving beyond a single topic thread
 
-So right now, fixing the cookie stuff. 
+**
+Make at template/partial that shows the general forum groups based on what's in
+the database collection
+And then a template that shows the specific topic threads
+I think the logic should be almost identical, just varying degree's of depth
+
+So perhaps using url parameters for breadcrumbs and database querying
+the path will be like '/forum/{something*}' 
+
+pseudocode
+
+/forum/generalforum
+reply.view(youposted.html, threads)
+/forum/generalforum/athreadinside
+reply.veiw(youposted.html, athreadinside)
+
 
 
 =A local to do list for this project=
 
+* [ ] Housekeeping
+    * [ ] I should clean it up in general, make it more modular
+    * [ ] more DRY 
+        * [ ] Context should be more dry
+            * [ ] Perhaps linebreak conversion function
 * [o] fix how posts work
     * [X] The front part needs to be worked on, postclass and option helpers I think
         * [X] First order of business is fixing the posts collection and adding userid/privilege
             * [X] Maybe write a short script to do it programmatically? 
         * [X] After that I will just update postclass to work with the new context
     * [ ] 
+* [ ] Limit routes/ login attempts
 * [ ] HTTPS
     * [ ] So the actual secure method would cost money, based on what I've read. 
           This will remain unchecked indefinitely I guess. 
@@ -54,10 +73,24 @@ So right now, fixing the cookie stuff.
 * [ ] Once I have different abilities based on privilege, add some more
     * [ ] Turn the posts page into a forum thread
     * [ ] It would start as a basic forum, users can create more threads, admins delete/modify
+    * [ ] Add administration abilities that don't require accessing the database
+          with the mongo shell and allow generally useful things
+      * [ ] Allow creation/deletion of servers
+      * [ ] various admin/mod actions like:
+          * [ ] deting posts
+          * [ ] modding posts
+          * [ ] banning user
+          * [ ] suspending user
+          * [ ] 
+      * [ ] User abilities like:
+          * [ ] Make a new thread
+          * [ ] delete user's own post
+          * [ ] edit user's own post
+          * [ ] 
 
 
 =Side project=
-* [ ] Another useful thing would be figuring out how to efficiently test stuff. It seems like a curl might be easier to do than loading the page in firefox. Maybe script that runs node + curl and exits? 
+* [ ] Another useful thing would be figuring out how to efficiently test stuff. It seems like a curl might be easier to do than loading the page in firefox. Maybe script that runs node + curl and exits 
     * [ ] Figure out quick methods for testing my particular situation
     * [ ] investigate if there are more established/useful things that are applicable
 * Node dashboard looks really cool. I don't know if I have any *real* use for it just yet. 
@@ -79,5 +112,6 @@ So right now, fixing the cookie stuff.
   github issue registers his plugins. Among other differences. 
 * The missing piece in my jwt stuff was a callback in the validate function. 
   Surprisingly a lot of time figuring that out. At least I persisted though. 
+* State only requires being set once, not every page. 
 
 vim: textwidth=80

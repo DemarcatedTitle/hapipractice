@@ -1,0 +1,7 @@
+            {{#if @root.thisUser}}
+            <form action="" class="form-group" method="POST"> 
+                <label for="post">What do you want to say, {{@root.thisUser.username}}?</label>
+                <textarea class="form-control" type="text" name="userpost"></textarea>
+                <input type="submit" value="save" />
+            </form>
+            {{/if}}
