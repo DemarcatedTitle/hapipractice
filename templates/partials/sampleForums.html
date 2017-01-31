@@ -1,0 +1,7 @@
+{{#each @root.forumGroups}}
+<div class='row user'>{{topic}}</div>
+{{#each forums}}
+<div><a href='/forums/{{forumName}}'>{{forumName}}</a></div>
+<p>{{forumDescription}}</p>
+{{/each}}
+{{/each}}
